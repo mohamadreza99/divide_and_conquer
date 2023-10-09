@@ -3,11 +3,10 @@ import torch
 from tqdm import tqdm
 import pickle
 import timm
-import torch.nn as nn
 import clip
 
 sys.path.append("..")
-from few_shot.datasets import InaturalistPlantae
+from data_loading.datasets import InaturalistPlantae
 from config import ROOT_PATH
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -73,3 +72,33 @@ with open(
         'wb') as handle:
     pickle.dump(embeddings_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 print('saved')
+
+
+# read dictionary from pickl file
+
+with open(ROOT_PATH + '/experiments/persistents/Plantae_background_' + NAME_STRING, 'rb') as handle:
+    background_embeddings_dict = pickle.load(handle)
+
+with open(ROOT_PATH + '/experiments/persistents/Plantae_evaluation_' + NAME_STRING, 'rb') as handle:
+    evaluation_embeddings_dict = pickle.load(handle)
+
+# sort all keys then stack all dictionary values as one numpy array
+background_embeddings = dict()
+for key in sorted(background_embeddings_dict.keys()):
+    name = background.id_to_class_name[key]
+    background_embeddings[name] = background_embeddings_dict[key]
+
+evaluation_embeddings = dict()
+for key in sorted(evaluation_embeddings_dict.keys()):
+    name = evaluation.id_to_class_name[key]
+    evaluation_embeddings[name] = evaluation_embeddings_dict[key]
+
+# save the dictionary in pick file in same directory as the ct file
+with open(ROOT_PATH + '/experiments/persistents/Plantae_background_keyname_' + NAME_STRING, 'wb') as handle:
+    pickle.dump(background_embeddings, handle, protocol=pickle.HIGHEST_PROTOCOL)
+print('saved')
+
+with open(ROOT_PATH + '/experiments/persistents/Plantae_evaluation_keyname_' + NAME_STRING, 'wb') as handle:
+    pickle.dump(evaluation_embeddings, handle, protocol=pickle.HIGHEST_PROTOCOL)
+print('saved')
+
