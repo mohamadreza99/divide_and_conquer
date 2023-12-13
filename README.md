@@ -1,4 +1,4 @@
-# Divide and Conquer: Two-Level Problem Remodeling for Large-Scale Few-Shot Learning (Submitted to R0-FoMo Workshop - Neurips 2023)
+# Divide and Conquer: Two-Level Problem Remodeling for Large-Scale Few-Shot Learning (Accepted at R0-FoMo Workshop - Neurips 2023)
 
 In this repository we provide PyTorch implementations for Divide and Conquer: Two-Level Problem Remodeling for Large-Scale Few-Shot Learning. The directory outline is as follows:
 
